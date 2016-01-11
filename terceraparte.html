@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hospital del nino</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1.0, maximun-scale=1.0,minimun-scale=1.0">
+    <link rel="stylesheet" href="flexcss.css">
+    <script src="prefix.js"></script>
+  </head>
+
+  <body>
+
+    <div class="contenedor">
+
+      <header>
+        <nav>
+          <a href="primeraparte.html" target="_self">Pacientes</a>
+          <a href="segundaparte.html" target="_self">Proceso</a>
+          <a href="terceraparte.html" target="_self">Alta</a>
+        </nav>
+      </header>
+
+
+      <section class="main">
+
+        <form action='conectar3.php' method="POST">
+
+        <article>
+          <h2> DATOS DE ALTA</h2>
+            <div class="datos1" id="datos1">
+                Transferencia a:
+                <input list="Trans" name="trans">
+                <datalist id="Trans">
+                  <option value="Alta voluntaria">
+                  <option value="Cardiologia">
+                  <option value="Cirugia cabeza y cuello">
+                  <option value="Cirugia general">
+                  <option value="Cirugia plastica">
+                  <option value="Cirugia de Torax">
+                  <option value="Clinica SBTD">
+                  <option value="Dep. de Medicina">
+                  <option value="Dep. de Servicios Intensivos y Ambulatorios">
+                  <option value="Dermatologia">
+                  <option value="ESSALUD">
+                  <option value="Emergencia">
+                  <option value="Gastroenterologia">
+                  <option value="Hematologia">
+                  <option value="INCOR">
+                  <option value="INEN">
+                  <option value="Infectologia">
+                  <option value="Medicina I-1A">
+                  <option value="Medicina I-2B">
+                  <option value="Medicina II-1C">
+                  <option value="Medicina II-2D">
+                  <option value="Morgue Central">
+                  <option value="Nefrologia">
+                  <option value="Neonatologia">
+                  <option value="Neumologia">
+                  <option value="Neurocirugia">
+                  <option value="Neurologia">
+                  <option value="Otorrinolaringologia">
+                  <option value="Patologia">
+                  <option value="Quemados">
+                  <option value="Traumatologia">
+                  <option value="U. Post - Operatoria Cardiovascular">
+                  <option value="U.C.I">
+                  <option value="Unidad de Ventilacion Mecanica Prolongada">
+                  <option value="Urologia">
+                  <option value="VMP">
+                  <option value="VMP/VMLD">
+                </datalist>
+                <br>
+                <br>
+                Diagnosticos
+                  <br>
+                  DX1
+                  <input type="text" name="codigo1s" placeholder="codigo">
+                  <input type="text" name="dx1s" placeholder="Diagnostico">
+                  <br>
+
+                  DX2
+                  <input type="text" name="codigo2s" placeholder="codigo">
+                  <input type="text" name="dx2s" placeholder="Diagnostico">
+                  <br>
+
+                  DX3
+                  <input type="text" name="codigo3s" placeholder="codigo">
+                  <input type="text" name="dx3s" placeholder="Diagnostico">
+                  <br>
+
+                  Observaciones
+                  <input type="text" name="obs">
+                  <br>
+                <br>
+                Fecha de Alta Medica
+                <input type="date" name="fechaAltamUCI">
+                <input type="time" name="horaFechaAltamUCI">
+                <br>
+                Fecha de Alta Efectiva
+                <input type="date" name="fechaAltaeUCI">
+                <input type="time" name="horaFechaAltaeUCI">
+                <br>
+                Estancia
+                <div id="Estancia">
+                  La estacia fue de:
+                </div>
+                <br>
+
+                Fallecio
+                <select name="fallecio">
+                  <option value="Si"> Si </option>
+                  <option value="No"> No </option>
+                </select>
+            </div>
+        </article>
+
+                <center>
+                  <div class="submit" id="submit">
+                     <button method="POST" type="submit">enviar</button>
+                  </div>
+                </center>
+
+      </form>
+
+
+
+      <footer>
+        Copyright (c) 2015 Copyright Holder All Rights Reserved.
+      </footer>
+
+    </div>
+  </body>
+</html>

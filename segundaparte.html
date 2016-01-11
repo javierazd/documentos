@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hospital del nino</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1.0, maximun-scale=1.0,minimun-scale=1.0">
+    <link rel="stylesheet" href="flexcss.css">
+    <script src="prefix.js"></script>
+    <script src="//code.jquery.com/jquery-1.8.2.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+  </head>
+
+  <body onload="calc1(); calc2(); calct(); contar()">
+
+    <div class="contenedor">
+
+      <header>
+        <nav>
+          <a href="primeraparte.html" target="_self" >Pacientes</a>
+          <a href="segundaparte.html" target="_self">Proceso</a>
+          <a href="terceraparte.html" target="_self">Alta</a>
+        </nav>
+      </header>
+
+      <section class="main">
+
+        <form action='conectar2.php' method="POST">
+
+          <article>
+            <h3> SECCION 0</H3>
+              <div class="datos0" id="datos0">
+
+              Codigo del paciente a evaluar: <input type="number" name="codigo">
+
+
+              </div>
+
+          </article>
+
+
+
+        <article>
+          <h3> SECCION 1</h3>
+            <div class="datos1" id="datos1">
+                Probabilidad de muerte
+                <input type="number" name="probabilidadMuerte">
+                <br>
+
+                PRISM
+                <input type="text" name="prism" autofocus>
+                <br>
+
+                Nutricion Parenteral Total
+                <select name="NPT">
+                  <option value=""> -- </option>
+                  <option value="Si"> Si </option>
+                  <option value="No"> No </option>
+                </select>
+                <br>
+
+                Traqueotomia
+                <select name="traqueotomia">
+                  <option value=""> -- </option>
+                  <option value="Si"> Si </option>
+                  <option value="No"> No </option>
+                </select>
+                <br>
+
+                Glicemia
+                <input type="number" name="glicemia">
+                <br>
+            </div>
+        </article>
+
+        <article>
+          <h3> SECCION 2 </h3>
+            <div class="datos2" id="datos2">
+
+                Ventilador Mecanico
+                <select name="VM" id="VM" onchange="DisEna();">
+                <option value=""> -- </option>
+                <option value="Si"> Si </option>
+                <option value="No"> No </option>
+                </select>
+
+
+
+
+                <script type="text/javascript">
+                function DisEna()
+                {
+                  var vm=document.getElementById("VM")
+                  var tvm=document.getElementById("tipoVMp")
+
+                  var fi1=document.getElementById("fechaIniVM1")
+                  var ff1=document.getElementById("fechaFinVM1")
+
+
+
+
+                  if(vm.options[vm.selectedIndex].value=="Si")
+                    {
+                      tvm.disabled=false;
+                      fi1.disabled=false;
+                      ff1.disabled=false;
+
+                    }
+                  else {
+                    tvm.selectedIndex=0
+                    tvm.disabled=true;
+
+                    fi1.selectedIndex=0
+                    fi1.disabled=true;
+
+                    ff1.selectedIndex=0
+                    ff1.disabled=true;
+
+
+                  }
+
+
+                }
+
+                </script>
+
+
+
+                <input list="tipoVM" name="tipoVM" id="tipoVMp" disabled>
+                  <datalist id="tipoVM">
+                    <option value="2.VM">
+                    <option value="3. VM+VNI">
+                    <option value="VNI">
+                    </datalist>
+                <br>
+
+
+
+                <script>
+                //script para hallar la diferencia de VM1//
+                function calc1(){
+                  var date1 = document.getElementById("fechaIniVM1").value;
+                  var date2 = document.getElementById("fechaFinVM1").value;
+                  var ano1 = date1.slice(0,4);
+                  var ano1=parseInt(ano1);
+                  var ano2 = date2.slice(0,4);
+                  var ano2=parseInt(ano2);
+
+                  var mes1 = date1.slice(5,7);
+                  var mes1=parseInt(mes1);
+                  var mes2 = date2.slice(5,7);
+                  var mes2=parseInt(mes2);
+
+                  var dia1 = date1.slice(8,10);
+                  var dia1=parseInt(dia1);
+                  var dia2 = date2.slice(8,10);
+                  var dia2=parseInt(dia2);
+
+                  var tiempo = ano2*365+mes2*30+dia2 - ano1*365-mes1*30-dia1;
+                  //alert(tiempo);
+                  document.getElementById("tvm1").innerHTML="El tiempo del vm1 es: " + tiempo;
+                  setTimeout(calc1,10);
+                  }
+                  </script>
+
+
+                  Fecha inicio VM1
+                  <input type="date" name="fechaIniVM1" id="fechaIniVM1" disabled="">
+                  <br>
+
+                  Fecha termino VM1
+                  <input type="date" name="fechaTerVM1" id="fechaFinVM1" disabled="">
+                  <br>
+
+                  <div id="tvm1">
+                    El tiempo del vm1 es:
+                    <!-- aparece el dato del tiempo de vm1-->
+                  </div>
+                  <br>
+                  Estubacion Fallida <=48 horas
+                  <select name="extubafall" id="extubafall" onchange="DisEna2();">
+                    <option value=""> -- </option>
+                    <option value="Si"> Si </option>
+                    <option value="No"> No </option>
+                  </select>
+                  Nº
+                  <input list="estubaFalln" name="estubaFalln" id="estubaFallnd" disabled>
+                  <datalist id="estubaFalln">
+                    <option value='1'>
+                    <option value="2">
+                    <option value="3">
+                    <option value="4">
+                  </datalist>
+                  <br>
+                  Reintubacion >48 horas
+                  <select name="reintuba" id="reintuba" onchange="DisEna2();">
+                    <option value=""> -- </option>
+                    <option value="Si"> Si </option>
+                    <option value="No"> No </option>
+                  </select>
+                  Nº
+                  <input list="reintuban" name="reintuban" id="reintubad" disabled>
+                  <datalist id="reintuban">
+                    <option value='1'>
+                    <option value="2">
+                    <option value="3">
+                    <option value="4">
+                  </datalist>
+                  <br>
+                  <br>
+
+
+                  <script>
+
+                  function DisEna2()
+                  {
+                  var ext=document.getElementById("extubafall");
+                  var extm=document.getElementById("estubaFallnd");
+
+                  var rein=document.getElementById("reintuba");
+                  var reinm=document.getElementById("reintubad");
+
+                  var fi2=document.getElementById("fechaIniVM2");
+                  var ft2=document.getElementById("fechaFinVM2");
+
+
+                  if(ext.options[ext.selectedIndex].value=="Si")
+                      {
+                            extm.disabled=false;
+                            fi2.disabled=false;
+                            ft2.disabled=false;
+
+
+                      }
+
+                  else {
+                            extm.selectedIndex=0;
+                            extm.disabled=true;
+
+                            fi2.selectedIndex=0;
+                            fi2..disabled=true;
+
+                            ft.selectedIndex=0;
+                            ft2.disabled=true;
+
+                    }
+
+
+                  if(rein.options[rein.selectedIndex].value=="Si")
+                      {
+                            reinm.disabled=false;
+                      }
+
+                  else {
+                            reinm.selectedIndex=0
+                            reinm.disabled=true;
+
+                      }
+
+                  }
+                </script>
+
+
+
+                  <script>
+                  //script para hallar la diferencia de VM2//
+
+                    function calc2(){
+                      var date1 = document.getElementById("fechaIniVM2").value;
+                      var date2 = document.getElementById("fechaFinVM2").value;
+
+                      var ano1 = date1.slice(0,4);
+                      var ano1=parseInt(ano1);
+                      var ano2 = date2.slice(0,4);
+                      var ano2=parseInt(ano2);
+
+                      var mes1 = date1.slice(5,7);
+                      var mes1=parseInt(mes1);
+                      var mes2 = date2.slice(5,7);
+                      var mes2=parseInt(mes2);
+
+                      var dia1 = date1.slice(8,10);
+                      var dia1=parseInt(dia1);
+                      var dia2 = date2.slice(8,10);
+                      var dia2=parseInt(dia2);
+
+                      var tiempo = ano2*365+mes2*30+dia2 - ano1*365-mes1*30-dia1;
+                      //alert(tiempo);
+                      document.getElementById("tvm2").innerHTML="El tiempo del vm2 es: " + tiempo;
+                      setTimeout(calc2,10);
+                    }
+                  </script>
+                  Fecha inicio VM2
+                  <input type="date" name="fechaIniVM2" id="fechaIniVM2" disabled>
+                  <br>
+
+                  Fecha termino VM2
+                  <input type="date" name="fechaTerVM2" id="fechaFinVM2" disabled>
+                  <br>
+
+                  <div id="tvm2">
+                    El tiempo del vm2 es:
+                    <!-- aparece el dato del tiempo de vm2-->
+                  </div>
+                  <br>
+
+                  Tiempo total
+                  <script>
+                    function calct(){
+                      var date1 = document.getElementById("fechaIniVM1").value;
+                      var date2 = document.getElementById("fechaFinVM1").value;
+                      var ano1 = date1.slice(0,4);
+                      var ano1=parseInt(ano1);
+                      var ano2 = date2.slice(0,4);
+                      var ano2=parseInt(ano2);
+
+                      var mes1 = date1.slice(5,7);
+                      var mes1=parseInt(mes1);
+                      var mes2 = date2.slice(5,7);
+                      var mes2=parseInt(mes2);
+
+                      var dia1 = date1.slice(8,10);
+                      var dia1=parseInt(dia1);
+                      var dia2 = date2.slice(8,10);
+                      var dia2=parseInt(dia2);
+
+                      var tiempo1 = ano2*365+mes2*30+dia2 - ano1*365-mes1*30-dia1;
+
+
+                      var date3 = document.getElementById("fechaIniVM2").value;
+                      var date4 = document.getElementById("fechaFinVM2").value;
+
+                      var ano3 = date3.slice(0,4);
+                      var ano3=parseInt(ano3);
+                      var ano4 = date4.slice(0,4);
+                      var ano4=parseInt(ano4);
+
+                      var mes3 = date3.slice(5,7);
+                      var mes3=parseInt(mes3);
+                      var mes4 = date4.slice(5,7);
+                      var mes4=parseInt(mes4);
+
+                      var dia3 = date3.slice(8,10);
+                      var dia3=parseInt(dia3);
+                      var dia4 = date4.slice(8,10);
+                      var dia4=parseInt(dia4);
+                      var tiempo2 = ano4*365+mes4*30+dia4 - ano3*365-mes3*30-dia3;
+
+                      var tiempo=tiempo1+tiempo2;
+                      document.getElementById("tvmt").innerHTML="El tiempo del vm total es: " + tiempo;
+                      setTimeout(calct,10);
+
+                    }
+                  </script>
+
+                  <div id="tvmt">
+                    El tiempo del vm total es:
+                    <!-- aparece el dato del tiempo de vm2-->
+                  </div>
+                  <br>
+
+                  Estubacion NO programada
+                  <select name="extubanp">
+                    <option value=""> -- </option>
+                    <option value="Si"> Si </option>
+                    <option value="No"> No </option>
+                  </select>
+          </div>
+        </article>
+
+        <article>
+          <h3> SECCION 3 </h3>
+            <div class="datos3" id="datos3">
+
+                Post Operado
+                <input type="hidden"  name="po" id="po" value="No">
+                <input type="checkbox" name="po" id="po" value="Si">
+                <br>
+
+                Malformacion Congenita
+                <input type="hidden"  name="mg" id="mg" value="No">
+                <input type="checkbox" name="mg" id='mg' value="Si">
+
+                <br>
+                <br>
+                Estado Nutricional
+                <input type="checkbox" name="en" id="en" value="Si" onclick="aaa();">
+
+                <br>
+
+                <script>
+                function aaa(){
+                var a = document.getElementById("en").checked;
+                if (a) {
+                  document.getElementById("ENAd").disabled = false;
+                }
+              else {
+                  document.getElementById("ENAd").disabled = true;
+                  document.getElementById("en").value='No';
+
+              }
+
+               }
+
+                </script>
+
+
+
+
+
+
+
+
+                Estado Nutricional Aguda
+                <input list="ENA" name="ENA" id="ENAd" disabled>
+                  <datalist id="ENA">
+                    <option value="severo">
+                    <option value="obsidad">
+                    <option value="leve">
+                    <option value="normal">
+                    <option value="moderado">
+                    <option value="sobrepeso">
+                  </datalist>
+                <br>
+
+                Peso
+                <input type="number" name="peso" step="0.01">
+                <br>
+
+                Talla
+                <input type="number" name="talla" step="0.01">
+                <br>
+                <br>
+                Disfuncion Organica:
+                <br>
+                Resp: <input type="checkbox" name="dot" id="Resp" value="Si">
+
+                Renal: <input type="checkbox" name="dor" id="Renal" value="Si">
+
+                Neur: <input type="checkbox" name="don" id="Neur" value="Si">
+
+                C.V: <input type="checkbox" name="doc" id="CV" value="Si">
+
+                Hep: <input type="checkbox" name="dohep" id="Hep" value="Si">
+
+                Hemat: <input type="checkbox" name="dohem"  id="Hem" value="Si">
+
+                <br>
+
+                <script>
+                // cantidad de disfunciones organicas//
+                  function contar(){
+                    var a =document.getElementById("Resp").checked;
+                    var b =document.getElementById("Renal").checked;
+                    var c =document.getElementById("Neur").checked;
+                    var d =document.getElementById("CV").checked;
+                    var e =document.getElementById("Hep").checked;
+                    var f =document.getElementById("Hem").checked;
+                    var contador=0;
+                    if (a === true){
+                      var contador=contador+1;
+                    }
+                    if (b===true) {
+                      var contador=contador+1;
+                    }
+                    if (c === true){
+                      var contador=contador+1;
+                    }
+                    if (d===true) {
+                      var contador=contador+1;
+                    }
+                    if (e === true){
+                      var contador=contador+1;
+                    }
+                    if (f===true) {
+                      var contador=contador+1;
+                    }
+                    document.getElementById("DOn").innerHTML="Cantidad D.O: " + contador;
+                    setTimeout(contar,10);
+
+                  }
+                </script>
+
+                <div id="DOn">
+                  Cantidad D.O:
+                  <!-- aparece el dato de el numero de disfunciones organicas-->
+                </div>
+                <br>
+                SIRS/Sepsis
+                <input list="SIRS" name="SIRS">
+                  <datalist id="SIRS">
+                    <option value="ninguno">
+                    <option value="sirs">
+                    <option value="sepsis severa">
+                    <option value="shock">
+                  </datalist>
+                <br>
+
+                CVC
+                <select name="cvc" id="cvcs" onchange="DisEna3();">
+                  <option value=""> -- </option>
+                  <option value="Si"> Si </option>
+                  <option value="No"> No </option>
+                </select>
+
+
+
+                <script>
+                    function DisEna3()
+                      {
+
+                      var cvcs=document.getElementById("cvcs");
+                      var cvc=document.getElementById("cvc");
+                      var cvcl=document.getElementById("cvcl");
+
+                                  if(cvcs.options[cvcs.selectedIndex].value=="Si")
+                                      {
+                                            cvc.disabled=false;
+                                            cvcl.disabled=false;
+
+                                      }
+
+                                  else {
+                                            cvc.selectedIndex=0;
+                                            cvc.disabled=true;
+                                            cvcl.selectedIndex=0;
+                                            cvcl.disabled=true;
+
+                                    }
+                                  }
+
+                                </script>
+
+
+
+
+
+                <input type="date" name="cvcd" id="cvc" disabled>
+                <br>
+                Lugar
+                <input list="CVCl" name="CVCl" id="cvcl" disabled>
+                  <datalist id ="CVCl">
+                    <option value="yugular">
+                    <option value="femoral">
+                    <option value="subclavia">
+                    <option value="otros">
+                  </datalist>
+            </div>
+        </article>
+
+        <article>
+            <h3> SECCION 4 </h3>
+              <div class="datos3" id="datos4">
+                  <h4> COMPLICACIONES </h4>
+                    <br>
+                    VM
+                    <br>
+                    <input type="hidden"  name="cb" id="Barotrauma" value="No">
+                    Barotrauma: <input type="checkbox" name="cb" id="Barotrauma" value="Si">
+
+                    <input type="hidden"  name="cea" id="ExtAcc" value="No">
+                    Extubacion Accidental: <input type="checkbox" name="cea" id="ExtAcc" value="Si">
+
+                    <input type="hidden"  name="cotet" id="ObsTET" value="No">
+                    Obstruccion TET: <input type="checkbox" name="cotet" id="ObsTET" value="Si">
+
+                    <input type="hidden"  name="cibd" id="IntBronDer" value="No">
+                    Intubacion Bronquio Derecho: <input type="checkbox" name="cibd" id="IntBronDer" value="Si">
+
+                    <input type="hidden"  name="ca" id="Atelectasia" value="No">
+                    Atelectasia: <input type="checkbox" name="ca" id="Atelectasia" value="Si">
+
+                    <input type="hidden"  name="cfe" id="FallaEquipo" value="No">
+                    Falla del equipo: <input type="checkbox" name="cfe"  id="FallaEquipo" value="Si">
+                    <br>
+
+                    Otro:<input type="checkbox" name="cotro" id="OtroCompVM" value="Si" onclick="bbb();">
+                    <input type ="text" name="vcmo" id="vcmo" disabled>
+
+
+                    <script>
+                    function bbb(){
+                    var a = document.getElementById("OtroCompVM").checked;
+                    if (a) {
+                      document.getElementById("vcmo").disabled = false;
+                    }
+                    else {
+                      document.getElementById("vcmo").disabled = true;
+
+                    }
+
+                   }
+                   </script>
+
+
+
+                    <br>
+                    <br>
+                    CVC
+                    <br>
+                    <input type="hidden"  name="cneumo" id="Neumo" value="No">
+                    Neumotorax: <input type="checkbox" name="cneumo" id="Neumo" value="Si">
+
+                    <input type="hidden"  name="chemo" id="Hemo" value="No">
+                    Hemotorax: <input type="checkbox" name="chemo" id="Hemo" value="Si">
+                    <br>
+
+                    Otros: <input type="checkbox" name="cvcotros" id="OtroCompCVC" value="Si" onclick="ccc();">
+                    <input type ="text" name="cvcotro" id="cvcotro" disabled>
+
+                    <script>
+                    function ccc(){
+                    var a = document.getElementById("OtroCompCVC").checked;
+                    if (a) {
+                      document.getElementById("cvcotro").disabled = false;
+                    }
+                    else {
+                      document.getElementById("cvcotro").disabled = true;
+
+                    }
+
+                   }
+                   </script>
+
+
+                    <br>
+                    Ulcera de presion: <input type="checkbox" name="cudp" id="UlceraPresion" value="Si" onclick="ddd();">
+                    Lugar <input list="UlceraPresionl" name="ulcera" id="ulcera" disabled>
+                      <datalist id="UlceraPresionl">
+                        <option value="lumbo-sacro">
+                        <option value="sacra">
+                        <option value="talon">
+                      </datalist>
+
+                      <script>
+                      function ddd(){
+                      var a = document.getElementById("UlceraPresion").checked;
+                      if (a) {
+                        document.getElementById("ulcera").disabled = false;
+                      }
+                      else {
+                        document.getElementById("ulcera").disabled = true;
+
+                      }
+
+                     }
+                     </script>
+
+
+                      <br>
+                      <br>
+
+                    IIH
+                    <br>
+                    <input type="hidden"  name="itsacvc" id="ITSaCVC" value="No">
+                    ITS asociado CVC: <input type="checkbox" name="itsacvc" id="ITSaCVC" value="Si">
+
+                    <input type="date" id="ITSaCVCd" name="ITSaCVCd">
+                    Tiempo <input type="number" name="tITSaCVC">
+                    <br>
+                    <input type="hidden"  name="itsna" id="ITSna" value="No">
+                    ITS no asociado: <input type="checkbox" name="itsna" id="ITSna" value="Si">
+
+                    <br>
+                    <input type="hidden"  name="navc" id="NAVc" value="No">
+                    N.A.V <input type="checkbox" name="navc" id="NAVc" value="Si">
+
+                    <input type="date" id="NAVdate" name="NAVdate">
+                    Tiempo <input type="number" name="NAVtiempo">
+                    <br>
+                    <input type="hidden"  name="ITU" id="ITU" value="No">
+                    I.T.U <input type="checkbox" name="ITU" id="ITU" value="Si">
+
+                    <input type="date" id="ITUdate" name="ITUdate">
+                    Cateter Vesica   <input type="date" id="CateterVesDate" name="CateterVesDate">
+                    <br>
+                    <input type="hidden"  name="iihotros" id="OtroIIH" value="No">
+                    Otros <input type="checkbox" name="iihotros" id="OtroIIH" value="Si">
+
+                    <input list="OtroIIHl" name="OtroIIHl">
+                      <datalist id="OtroIIHl">
+                        <option value="nosecual">
+                      </datalist>
+              </div>
+        </article>
+
+        <center>
+          <div class="submit" id="submit">
+             <button method="POST" type="submit">enviar</button>
+          </div>
+        </center>
+      </form>
+
+
+      </section>
+
+        <footer>
+          Copyright (c) 2015 Copyright Holder All Rights Reserved.
+        </footer>
+
+    </div>
+  </body>
+</html>

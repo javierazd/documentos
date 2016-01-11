@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hospital del nino</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1.0, maximun-scale=1.0,minimun-scale=1.0">
+    <link rel="stylesheet" href="flexcss.css">
+    <script src="prefix.js"></script>
+  </head>
+
+  <body onload="calcedad()">
+
+    <div class="contenedor">
+      <header>
+        <nav>
+          <a href="primeraparte.html" target="_self">Pacientes</a>
+          <a href="segundaparte.html" target="_self">Proceso</a>
+          <a href="terceraparte.html" target="_self">Alta</a>
+        </nav>
+      </header>
+
+      <section class="main">
+
+      <form action='conectar.php' method="POST">
+
+
+        <article>
+          <h2> DATOS DEL HOSPITAL</h2>
+            <div class="datos1" id="datos1">
+                  Historia
+                  <input type="number" name="nhistoria" autofocus>
+                  <br>
+
+                  Fecha de ingreso UCI
+                  <input type="date" name="fechaIngUCI" id="fechaIngUCI">
+                  <br>
+
+                  Hora de ingreso UCI
+                  <input type="time" name="horaIngUCI">
+                  <br>
+
+            </div>
+        </article>
+
+
+
+
+        <article>
+          <h2> DATOS GENERALES DEL PACIENTE </h2>
+            <div class="datos2" id="datos2">
+                  DNI:
+                  <input type="number" name="DNI">
+                  <br>
+
+                  Nombre(s):
+                  <input type="text" name="nombre">
+                  <br>
+
+                  Apellidos:
+                  <input type="text" name="apellido">
+                  <br>
+
+                  Sexo:
+                  <input type="radio" name="sexo" value="hombre" >Hombre
+                  <input type="radio" name="sexo" value="mujer"  >Mujer
+                  <br>
+
+                  Fecha de Nacimiento
+                  <input type="date" name="fechaNac" id="fechaNac">
+
+                  <!--Edad-->
+                  <script>
+                    function calcedad(){
+                        var date1 = document.getElementById("fechaNac").value;
+                        var ano1 = date1.slice(0,4);
+                        var ano1=parseInt(ano1);
+
+                        var mes1 = date1.slice(5,7);
+                        var mes1=parseInt(mes1);
+
+                        var dia1 = date1.slice(8,10);
+                        var dia1=parseInt(dia1);
+
+                        var hoy = new Date();
+                        var dd=hoy.getDate();
+                        var dd=parseInt(dd);
+                        var mm=hoy.getMonth();
+                        var mm=parseInt(mm)+1;
+                        var yyyy=hoy.getFullYear();
+                        var yyyy=parseInt(yyyy);
+
+
+                        //if (dd<10){
+                        //  dd='0' +dd
+                        //}
+                        //if (mm<10){
+                        //  mm='0'+mm
+                        //}
+                        if(mm<mes1){
+                          var edad = yyyy - ano1-1;
+                        }
+                        else if (mm==mes1) {
+                          if (dd<dia1) {
+                            var edad = yyyy - ano1;
+                          }
+                          else {
+                            var edad = yyyy - ano1 + 1;
+                          }
+                        }
+                        else {
+                          var edad = yyyy -  ano1;
+                        }
+                        document.getElementById("edad").innerHTML="Edad: " + edad;
+
+                        setTimeout(calcedad,10);
+                    }
+                    calcedad();
+                  </script>
+
+                  <div id="edad">
+                    Edad
+                  </div>
+                  <br>
+            </div>
+        </article>
+
+
+
+
+
+
+        <article>
+          <h2> ANTECEDENTES </h2>
+            <div class="datos3" id="datos3">
+                <!--Datos Procedencia -->
+                Departamento procedencia
+                <input list="departamento" name="departamento">
+                  <datalist id="departamento">
+                    <option value="Amazonas">
+                    <option value="Ancash">
+                    <option value="Apurimac">
+                    <option value="Arequipa">
+                    <option value="Ayacucho">
+                    <option value="Cajamarca">
+                    <option value="Callao">
+                    <option value="Cusco">
+                    <option value="Huancavelica">
+                    <option value="Huanuco">
+                    <option value="Ica">
+                    <option value="Junin">
+                    <option value="La Libertad">
+                    <option value="Lambayeque">
+                    <option value="Lima">
+                    <option value="Loreto">
+                    <option value="Madre de Dios">
+                    <option value="Moquegua">
+                    <option value="Pasco">
+                    <option value="Piura">
+                    <option value="Puno">
+                    <option value="San Martin">
+                    <option value="Tacna">
+                    <option value="Tumbes">
+                    <option value="Ucayali">
+                  </datalist>
+                  <br>
+
+                Servicio
+                <input list="Servicio" name="servicio">
+                  <datalist id="Servicio">
+                    <option value="Anestesiologia y Centro Quirurgico">
+                    <option value="Cardiologia">
+                    <option value="Cirugia Cabeza y Cuello">
+                    <option value="Cirugia Torax">
+                    <option value="Cirugia General">
+                    <option value="Cirugia Plastica">
+                    <option value="Clinica SBTD">
+                    <option value="DEP. de Medicina">
+                    <option value="Dermatologia">
+                    <option value="Emergencia">
+                    <option value="Gastroenterologia">
+                    <option value="Hematologia">
+                    <option value="Infectologia">
+                    <option value="Medicina I-1A">
+                    <option value="Medicina I-2B">
+                    <option value="Medicina II-1C">
+                    <option value="Medicina II-2D">
+                    <option value="Nefrologia">
+                    <option value="Neurocirugia">
+                    <option value="Neurologia">
+                    <option value="Otorrinolaringologia">
+                    <option value="Quemados">
+                    <option value="Traumatologia">
+                    <option value="U.Post-Operatoria Cardiovascular">
+                    <option value="VMP">
+                  </datalist>
+                <br>
+
+                Diagnosticos
+                <br>
+                DX1
+                <input type="text" name="dx1c" placeholder="codigo">
+                <input type="text" name="dx1n" placeholder="Diagnostico">
+                <br>
+
+                DX2
+                <input type="text" name="dx2c" placeholder="codigo">
+                <input type="text" name="dx2n" placeholder="Diagnostico">
+                <br>
+
+                DX3
+                <input type="text" name="dx3c" placeholder="codigo">
+                <input type="text" name="dx3n" placeholder="Diagnostico">
+                <br>
+
+                DX4
+                <input type="text" name="dx4c" placeholder="codigo">
+                <input type="text" name="dx4n" placeholder="Diagnostico">
+                <br>
+
+                DX5
+                <input type="text" name="dx5c" placeholder="codigo">
+                <input type="text" name="dx5n" placeholder="Diagnostico">
+                <br>
+          </div>
+      </article>
+
+
+
+
+        <center>
+          <div class="submit" id="submit">
+             <button method="POST" type="submit">enviar</button>
+          </div>
+        </center>
+      </form>
+
+
+
+    </section>
+    <footer>
+      Copyright (c) 2015 Copyright Holder All Rights Reserved.
+    </footer>
+    </div>
+  </body>
+</html>
